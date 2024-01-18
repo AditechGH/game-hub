@@ -1,22 +1,37 @@
-import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
-import { BsChevronDown } from 'react-icons/bs'
+import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { BsChevronDown } from "react-icons/bs";
 
-const SortSelector = () => {
-    return (
-        <Menu>
-            <MenuButton as={Button} rightIcon={<BsChevronDown />} >
-                Order by: Relevance
-            </MenuButton>
-            <MenuList>
-            <MenuItem onClick={() => console.log('clicled')}>Relevance</MenuItem>
-            <MenuItem onClick={() => console.log('clicled')}>Date Added</MenuItem>
-            <MenuItem onClick={() => console.log('clicled')}>Name</MenuItem>
-            <MenuItem onClick={() => console.log('clicled')}>Release Date</MenuItem>
-            <MenuItem onClick={() => console.log('clicled')}>Popularity</MenuItem>
-            <MenuItem onClick={() => console.log('clicled')}>Average Rating</MenuItem>
-            </MenuList>
-        </Menu>
-      )
+interface Props {
+  onSelectSortOrder: (string: any) => void;
+  sortOrder: string;
 }
 
-export default SortSelector
+const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
+  const sortOrders = [
+    { value: "", label: "Relevance" },
+    { value: "-added", label: "Date Added" },
+    { value: "name", label: "Name" },
+    { value: "-released", label: "Release Date" },
+    { value: "metacritic", label: "Popularity" },
+    { value: "-rating", label: "Average Rating" },
+  ];
+
+  const currentSortOrder = sortOrders.find(order => order.value === sortOrder);
+
+  return (
+    <Menu>
+      <MenuButton as={Button} rightIcon={<BsChevronDown />}>
+        Order by: {currentSortOrder?.label || "Relevance"}
+      </MenuButton>
+      <MenuList>
+        {sortOrders.map((order) => (
+          <MenuItem onClick={() => onSelectSortOrder(order.value)} key={order.value}>
+            {order.label}
+          </MenuItem>
+        ))}
+      </MenuList>
+    </Menu>
+  );
+};
+
+export default SortSelector;
