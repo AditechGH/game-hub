@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "axe/structure": [
+      "default",
+      {
+        "definition-list": "off"
+      }
+    ],
+    "typescript-config/consistent-casing": "off"
+  }
+}
