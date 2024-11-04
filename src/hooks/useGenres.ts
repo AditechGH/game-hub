@@ -9,8 +9,8 @@ const apiClient = new APIClient<Genre>("/genres");
 const useGenres = () => {
   return useQuery({
     queryKey: ["genres"],
-    queryFn: apiClient.getAll,
     staleTime: ms("24h"),
+    queryFn: apiClient.getAll,
     initialData: genres,
   });
 };
